@@ -16,8 +16,14 @@ namespace Pruebas
         {
             WorkBook archivoExcel = WorkBook.Create(ExcelFileFormat.XLS);
             archivoExcel.Metadata.Author = "Arcadia";
-
             WorkSheet hojaExcel = archivoExcel.CreateWorkSheet("Productos");
+
+            for (int i = 0; i <= dgvProductos.Rows.Count - 1; i++)
+            {
+                hojaExcel["A" + i].Value = dgvProductos.Rows[i].Cells["idProducto"];
+                hojaExcel["B" + i].Value = dgvProductos.Rows[i].Cells["nombreProducto"];
+                hojaExcel["C" + i].Value = dgvProductos.Rows[i].Cells["cantidadProducto"];  
+            }
 
         }
 
@@ -27,6 +33,10 @@ namespace Pruebas
             string nombreProducto = tbNombre.Text;
             string cantidadProducto = tbCantidad.Text;
             this.dgvProductos.Rows.Add(idProducto,nombreProducto,cantidadProducto);
+
+            tbId.Text = "";
+            tbNombre.Text = "";
+            tbCantidad.Text = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
