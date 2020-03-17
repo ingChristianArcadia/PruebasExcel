@@ -14,17 +14,22 @@ namespace Pruebas
 
         private void button3_Click(object sender, EventArgs e)
         {
-            WorkBook archivoExcel = WorkBook.Create(ExcelFileFormat.XLS);
+            WorkBook archivoExcel = WorkBook.Create(ExcelFileFormat.XLSX);
             archivoExcel.Metadata.Author = "Arcadia";
             WorkSheet hojaExcel = archivoExcel.CreateWorkSheet("Productos");
-
-            for (int i = 0; i <= dgvProductos.Rows.Count - 1; i++)
+            int i = 1; 
+            foreach(DataGridViewRow fila in dgvProductos.Rows)
             {
-                hojaExcel["A" + i].Value = dgvProductos.Rows[i].Cells["idProducto"];
-                hojaExcel["B" + i].Value = dgvProductos.Rows[i].Cells["nombreProducto"];
-                hojaExcel["C" + i].Value = dgvProductos.Rows[i].Cells["cantidadProducto"];  
+                Console.WriteLine("Fila: "+i);
+                hojaExcel["A" + i].Value = fila.Cells["idProducto"].ToString();
+                Console.WriteLine("IdProducto: " + fila.Cells["idProducto"].ToString());
+                hojaExcel["B" + i].Value = fila.Cells["nombreProducto"].ToString();
+                Console.WriteLine("nombre: " + fila.Cells["nombreProducto"].ToString());
+                hojaExcel["C" + i].Value = fila.Cells["cantidadProducto"].ToString();
+                Console.WriteLine("Cantidad: " + fila.Cells["cantidadProducto"].ToString());
+                i++;
             }
-
+            archivoExcel.SaveAs("C:\\Users\\Arcadia\\Desktop\\Prueba1.xlsx");
         }
 
         private void button1_Click(object sender, EventArgs e)
